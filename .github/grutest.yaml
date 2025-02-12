@@ -1,0 +1,65 @@
+version: "1.0"
+on:
+  push:
+    include:
+      - to-many-files
+    exclude:
+      - testgru-*
+  pullRequest:
+    include:
+      branch:
+        - "**"
+      title:
+        - "**"
+    exclude:
+      branch:
+        - testgru-*
+      title:
+        - wip*
+global:
+  setup:
+    - pnpm install
+pipeline:
+  runTest:
+    exec:
+      - npx vitest run {{testFilePath}}
+settings:
+  exportFunctionOrClass: allow
+  testPlacementStrategies:
+    - type: co-located
+      testFilePattern: "{{sourceFileName}}.test.ts"
+  language: typescript
+  framework: vitest
+---
+version: "1.0"
+on:
+  push:
+    include:
+      - to-many-files
+    exclude:
+      - testgru-*
+  pullRequest:
+    include:
+      branch:
+        - "**"
+      title:
+        - "**"
+    exclude:
+      branch:
+        - testgru-*
+      title:
+        - wip*
+global:
+  setup:
+    - pnpm install
+pipeline:
+  runTest:
+    exec:
+      - npx vitest run {{testFilePath}}
+settings:
+  exportFunctionOrClass: allow
+  testPlacementStrategies:
+    - type: co-located
+      testFilePattern: "{{sourceFileName}}.test.ts"
+  language: typescript
+  framework: vitest
